@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+
+</head>
+<body>
+        <div class="row" style="padding: 20px" ng-controller="loopCtrl">
+            <div class="col-md-2" >
+                <div class="row">
+                    <!--categaries-->
+                    <div class="list-group" >
+                        <a href="#" class="list-group-item disabled" style="background-color: #4F6457; color: white">
+                            CATEGORIES
+                        </a>
+                        <div ng-repeat=" type in btnList">
+                            <a href="" class="list-group-item" >{{type.btn}}</a>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!--popular animals-->
+                    <h4>Popular</h4>
+                    <hr>
+                    <div class="media" ng-repeat=" a in animals.slice(3) | orderBy: '-score'" >
+                        <div class="media-left">
+                            <img src="img/{{a.img}}" class="media-object" style="width:50px; height: 50px">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Name: {{a.name}}</h4>
+                            <h6 class="media-heading">Score: {{a.score}} </h6>
+                        </div>
+                        <hr>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="col-md-12">
+                    <h3>Cute animal world</h3>
+                </div>
+                <div class="col-md-12" ng-controller="MyCtrl" >
+
+                    <h5>Sorted by: <input  ng-model="typefilter"></h5>
+                    <br>
+                    <div ng-if=" typefilter == ''">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4" ng-repeat=" a in animals" >
+                                <div class="thumbnail" style="box-shadow: 2px 2px 10px grey;">
+                                    <img src="img/{{a.img}}"  style="width:100px; height: 100px">
+                                    <div class="caption">
+                                        <b>Name: {{a.name}}</b>
+                                        <p>type: {{a.type}}</p>
+                                        <p> hobbies: {{a.hobby}}</p>
+                                        <button  ng-click="showModal(a.modal)" class="btn btn-info btn-sm" >profile</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div ng-if="typefilter != '' ">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4" ng-repeat=" a in animals | filter:{'type': typefilter}">
+                                <div class="thumbnail" style="box-shadow: 2px 2px 10px grey;">
+                                    <img src="img/{{a.img}}"  style="width:100px; height: 100px">
+                                    <div class="caption">
+                                        <b>Name: {{a.name}}</b>
+                                        <p>type: {{a.type}}</p>
+                                        <p> hobbies: {{a.hobby}}</p>
+                                        <button  ng-click="showModal(a.modal)" class="btn btn-info btn-sm" >profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" ng-controller="newsCtrl" >
+                <?php include 'php/test-json.php';?>
+                <h4>OUR UPDATE</h4>
+                <hr>
+                <div class="media" ng-repeat=" news in newslist">
+                    <div class="media-body">
+                        <h4>{{news.date}}</h4>
+                        <p>{{news.news}}</p>
+                        <a href="{{news.link}}">view more --></a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+</body>
+</html>
